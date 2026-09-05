@@ -88,8 +88,51 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": 6,
    "id": "c2385d55-8a8f-44cb-876d-09bb55264e47",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "ModuleNotFoundError",
+     "evalue": "No module named 'normaliser'",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[31m---------------------------------------------------------------------------\u001b[39m",
+      "\u001b[31mModuleNotFoundError\u001b[39m                       Traceback (most recent call last)",
+      "\u001b[36mCell\u001b[39m\u001b[36m \u001b[39m\u001b[32mIn[6]\u001b[39m\u001b[32m, line 3\u001b[39m\n\u001b[32m      1\u001b[39m \u001b[38;5;28;01mimport\u001b[39;00m pandas \u001b[38;5;28;01mas\u001b[39;00m pd\n\u001b[32m      2\u001b[39m \n\u001b[32m----> \u001b[39m\u001b[32m3\u001b[39m \u001b[38;5;28;01mfrom\u001b[39;00m normaliser \u001b[38;5;28;01mimport\u001b[39;00m normalize_year, normalize_ticker\n\u001b[32m      4\u001b[39m \n\u001b[32m      5\u001b[39m \n\u001b[32m      6\u001b[39m \u001b[38;5;28;01mdef\u001b[39;00m load_excel():\n",
+      "\u001b[31mModuleNotFoundError\u001b[39m: No module named 'normaliser'"
+     ]
+    }
+   ],
+   "source": [
+    "import pandas as pd\n",
+    "\n",
+    "from normaliser import normalize_year, normalize_ticker\n",
+    "\n",
+    "\n",
+    "def load_excel():\n",
+    "    df = pd.read_excel(\"C:/N100 Finacial Intelligence Platform/data/companies.xlsx\")\n",
+    "\n",
+    "    df.columns = (\n",
+    "        df.columns\n",
+    "        .str.strip()\n",
+    "        .str.lower()\n",
+    "        .str.replace(\" \", \"_\", regex=False)\n",
+    "    )\n",
+    "\n",
+    "    if \"year\" in df.columns:\n",
+    "        df[\"year\"] = df[\"year\"].apply(normalize_year)\n",
+    "\n",
+    "    if \"ticker\" in df.columns:\n",
+    "        df[\"ticker\"] = df[\"ticker\"].apply(normalize_ticker)\n",
+    "\n",
+    "    return df"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "2f56a1b0-1743-426d-a702-2311459657b5",
    "metadata": {},
    "outputs": [],
    "source": []
